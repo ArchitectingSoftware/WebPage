@@ -1,65 +1,62 @@
 .drexel-yellow {
-    background-color: #FFC600;
+  background-color: #ffc600;
 }
 
 .drexel-blue {
-    background-color: #07294D
+  background-color: #07294d;
 }
 
 .drexel-light-blue {
-    background-color: #6CACE4
+  background-color: #6cace4;
 }
 
 .drexel-font-yellow {
-   color: #FFC600;
+  color: #ffc600;
 }
 
 .drexel-green {
-    background-color: #B7BF10;
+  background-color: #b7bf10;
 }
 
 .drexel-green-2 {
-    background-color: #949300;
+  background-color: #949300;
 }
 
 .drexel-blue-2 {
-    background-color: #006699;
+  background-color: #006699;
 }
 
 .accordion-bc {
-    background-color: red 
+  background-color: red;
 }
 
 .drexel-gray {
-    background-color: #E1E1E0;
+  background-color: #e1e1e0;
 }
 
 .drexel-font-blue {
-    color: #07294D
+  color: #07294d;
 }
 
 .drexel-font-white {
-    color: white
+  color: white;
 }
 
 .drexel-font-light-blue {
-    color: #6CACE4
+  color: #6cace4;
 }
 
-
-
-
 .accordion-button.collapsed {
-    background: #E1E1E0;
+  background: #e1e1e0;
 }
 
 .accordion-button:focus {
-    box-shadow: none !important;
-    border-color: none !important;
+  box-shadow: none !important;
+  border-color: none !important;
 }
 
 .accordion-button::after {
-    order: -1; 
-    margin-left: 0; 
-    margin-right:0.5em;
+  order: -1;
+  margin-left: 0;
+  margin-right: 0.5em;
 }

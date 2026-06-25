@@ -177,4 +177,4 @@
     "slides": null,
     "abstract": "This paper describes a collection of algorithms that we developed and implemented to facilitate the automatic recovery of the modular structure of a software system from its source code. We treat automatic modularization as an optimization problem. Our algorithms make use of traditional hill-climbing and genetic algorithms."
   }
-] 
+]
