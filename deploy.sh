@@ -4,23 +4,44 @@ set -euo pipefail
 REMOTE="bsm23@tux.cs.drexel.edu"
 REMOTE_PATH="public_html/"
 
-DATA_FILES=(
-  static/contact.json
-  static/courses.json
-  static/publications.json
-  static/talks.json
-)
+usage() {
+  echo "Usage: $0 <command>"
+  echo ""
+  echo "Commands:"
+  echo "  build    Build the site into build/"
+  echo "  verify   Serve the build locally for review (http://localhost:4173)"
+  echo "  deploy   Push the full build/ to the server"
+  echo "  data     Push only static/ deltas (JSON, PDFs, syllabi) — no rebuild needed"
+  exit 1
+}
 
-if [[ "${1:-}" == "data" ]]; then
-  echo "==> Syncing data files only (no rebuild)..."
-  rsync -avz "${DATA_FILES[@]}" "${REMOTE}:${REMOTE_PATH}"
-  echo "==> Done."
-  exit 0
-fi
+[[ $# -lt 1 ]] && usage
 
-echo "==> Building..."
-pnpm build
+case "$1" in
+  build)
+    echo "==> Building..."
+    pnpm build
+    echo "==> Done. Run './deploy.sh verify' to preview or './deploy.sh deploy' to push."
+    ;;
 
-echo "==> Deploying to ${REMOTE}:${REMOTE_PATH}..."
-rsync -avz --delete build/ "${REMOTE}:${REMOTE_PATH}"
-echo "==> Done."
+  verify)
+    echo "==> Starting local preview at http://localhost:4173/~bmitchell/ ..."
+    pnpm preview
+    ;;
+
+  deploy)
+    echo "==> Deploying build/ to ${REMOTE}:${REMOTE_PATH}..."
+    rsync -avz --delete --chmod=D755,F644 --exclude='.DS_Store' build/ "${REMOTE}:${REMOTE_PATH}"
+    echo "==> Done."
+    ;;
+
+  data)
+    echo "==> Syncing static/ deltas to ${REMOTE}:${REMOTE_PATH}..."
+    rsync -avz --chmod=D755,F644 --exclude='.DS_Store' static/ "${REMOTE}:${REMOTE_PATH}"
+    echo "==> Done."
+    ;;
+
+  *)
+    usage
+    ;;
+esac
