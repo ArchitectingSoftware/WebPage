@@ -1,6 +1,8 @@
 allowBuilds:
   esbuild: false
   svelte-preprocess: false
+minimumReleaseAgeExclude:
+  - "@sveltejs/kit@2.68.0"
 onlyBuiltDependencies:
   - esbuild
   - svelte-preprocess
