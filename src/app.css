@@ -38,12 +38,20 @@ body {
 }
 
 .section-heading i {
-  color: var(--c-gold);
-  font-size: 1.55rem;
-  margin-right: 0.45rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  background: var(--c-gold);
+  color: var(--c-navy);
+  border-radius: 50%;
+  font-size: 1.3rem;
+  margin-right: 0.65rem;
   vertical-align: middle;
   position: relative;
   top: -3px;
+  flex-shrink: 0;
 }
 
 /* Bootstrap accordion overrides */

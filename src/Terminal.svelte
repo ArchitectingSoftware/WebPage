@@ -427,7 +427,9 @@ ${number}. <a href="${pub.link}" class="link-info" target="_blank">${pub.title}<
     font-family: "Courier New", monospace;
   }
   .terminal-heading :global(i) {
+    background: rgba(32, 201, 151, 0.12);
     color: #20c997;
+    border: 1.5px solid rgba(32, 201, 151, 0.3);
   }
   .terminal-box {
     font-family: "Courier New", monospace;

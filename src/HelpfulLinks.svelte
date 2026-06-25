@@ -18,14 +18,14 @@
       </a>
       <a
         class="link-card"
-        href="https://learn.dcollege.net/"
+        href="https://canvas.drexel.edu/"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <i class="bi bi-mortarboard link-icon"></i>
+        <i class="bi bi-easel2 link-icon"></i>
         <div>
-          <div class="link-title">Drexel Learn</div>
-          <div class="link-sub">Blackboard LMS</div>
+          <div class="link-title">Drexel Canvas</div>
+          <div class="link-sub">Canvas LMS</div>
         </div>
       </a>
     </div>
