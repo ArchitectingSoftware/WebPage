@@ -1,4 +1,1 @@
-# Prevent browsers from caching JSON data files so updates are visible immediately.
-<FilesMatch "\.json$">
-    Header set Cache-Control "no-cache, must-revalidate"
-</FilesMatch>
+# Apache config for public_html

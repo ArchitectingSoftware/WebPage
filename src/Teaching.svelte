@@ -14,7 +14,7 @@
   let isOpen2 = false;
 
   onMount(async () => {
-    const res = await fetch("./courses.json");
+    const res = await fetch(`./courses.json?v=${Date.now()}`);
     CourseList = await res.json();
   });
 

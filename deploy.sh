@@ -33,7 +33,7 @@ case "$1" in
     echo "==> Deploying build/ to ${REMOTE}:${REMOTE_PATH}..."
     rsync -avz --delete --exclude='.DS_Store' build/ "${REMOTE}:${REMOTE_PATH}"
     echo "==> Fixing permissions..."
-    ssh "${REMOTE}" "find ~/public_html -type f -exec chmod 644 {} \; && find ~/public_html -type d -exec chmod 755 {} \;"
+    ssh "${REMOTE}" "find ~/public_html -type f -exec chmod 644 {} + && find ~/public_html -type d -exec chmod 755 {} +"
     echo "==> Done."
     ;;
 
@@ -41,7 +41,7 @@ case "$1" in
     echo "==> Syncing static/ deltas to ${REMOTE}:${REMOTE_PATH}..."
     rsync -avz --exclude='.DS_Store' static/ "${REMOTE}:${REMOTE_PATH}"
     echo "==> Fixing permissions..."
-    ssh "${REMOTE}" "find ~/public_html -type f -exec chmod 644 {} \; && find ~/public_html -type d -exec chmod 755 {} \;"
+    ssh "${REMOTE}" "find ~/public_html -type f -exec chmod 644 {} + && find ~/public_html -type d -exec chmod 755 {} +"
     echo "==> Done."
     ;;
 

@@ -310,21 +310,21 @@ ${number}. <a href="${pub.link}" class="link-info" target="_blank">${pub.title}<
 
   onMount(async () => {
     try {
-      const response = await fetch("./courses.json");
+      const response = await fetch(`./courses.json?v=${Date.now()}`);
       coursesData = await response.json();
     } catch (error) {
       console.error("Failed to load courses data:", error);
     }
 
     try {
-      const contactResponse = await fetch("./contact.json");
+      const contactResponse = await fetch(`./contact.json?v=${Date.now()}`);
       contactData = await contactResponse.json();
     } catch (error) {
       console.error("Failed to load contact data:", error);
     }
 
     try {
-      const publicationsResponse = await fetch("./publications.json");
+      const publicationsResponse = await fetch(`./publications.json?v=${Date.now()}`);
       publicationsData = await publicationsResponse.json();
     } catch (error) {
       console.error("Failed to load publications data:", error);

@@ -6,7 +6,7 @@
   };
   let talks: Talk[] = [];
   onMount(async () => {
-    const res = await fetch("./talks.json");
+    const res = await fetch(`./talks.json?v=${Date.now()}`);
     talks = await res.json();
   });
 </script>

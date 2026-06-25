@@ -14,7 +14,7 @@
   let openAbstract: number | null = null;
 
   onMount(async () => {
-    const res = await fetch("./publications.json");
+    const res = await fetch(`./publications.json?v=${Date.now()}`);
     publications = await res.json();
   });
 
