@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { slide } from "svelte/transition";
 
   type Pub = {
     id: number;
@@ -14,8 +15,7 @@
 
   onMount(async () => {
     const res = await fetch("./publications.json");
-    const data = await res.json();
-    publications = data;
+    publications = await res.json();
   });
 
   $: sortedPublications = publications.slice().sort((a, b) => b.id - a.id);
@@ -24,8 +24,12 @@
     openAbstract = openAbstract === id ? null : id;
   }
 
-  // SVG for PDF icon
-  const pdfIcon = `<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' style='vertical-align:middle;margin-left:3px' viewBox='0 0 24 24' fill='none' stroke='#d32f2f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='2' width='20' height='20' rx='2.18' ry='2.18'/><path d='M7 7h10M7 11h10M7 15h4'/></svg>`;
+  function handleKeydown(e: KeyboardEvent, id: number) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleAbstract(id);
+    }
+  }
 </script>
 
 <div class="section-research" id="research">
@@ -33,70 +37,70 @@
     <h2 class="section-heading">Research</h2>
     <div class="container">
       <div class="phd-card">
-        <div class="row">
-          <h4>Ph.D. Thesis</h4>
-        </div>
-        <div class="row text-align-left">
-          <span class="font-italic fw-bold phd-title">
-            <a
-              class="citation-title"
-              href="./pubs/MitchellPhD.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="View PDF"
-            >
-              A Heuristic Search Approach to Solving the Software Clustering
-              Problem
-              <!-- eslint-disable-next-line -->
-              {@html pdfIcon}
-            </a>
-          </span>
-          <p class="phd-desc">
-            The focus of this work was to investigate recovering interesting
-            views of the structure of software systems using heuristic search
-            techniques. This work has applicability in multiple software
-            engineering areas including: program understanding, software
-            maintenance, and architecture recovery. As one of the founding
-            members of the field of Search-Based Software Engineering (SBSE),
-            this work has been widely cited by researchers interested in
-            investigating software clustering algorithms and techniques.
-          </p>
-        </div>
-      </div>
-      <div class="row">
-        <h4>Journal and Research Publications</h4>
+        <h4 class="phd-label">Ph.D. Thesis</h4>
+        <a
+          class="phd-title-link"
+          href="./pubs/MitchellPhD.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          A Heuristic Search Approach to Solving the Software Clustering Problem
+          <i class="bi bi-box-arrow-up-right ms-1"></i>
+        </a>
+        <p class="phd-desc">
+          The focus of this work was to investigate recovering interesting views
+          of the structure of software systems using heuristic search
+          techniques. This work has applicability in multiple software
+          engineering areas including: program understanding, software
+          maintenance, and architecture recovery. As one of the founding members
+          of the field of Search-Based Software Engineering (SBSE), this work
+          has been widely cited by researchers interested in investigating
+          software clustering algorithms and techniques.
+        </p>
       </div>
 
-      <div class="row">
-        <div class="col">
-          <ul class="citation-list">
-            {#each sortedPublications as pub (pub.id)}
-              <li class="citation-item">
+      <h4 class="pubs-heading">Journal and Research Publications</h4>
+
+      <div class="pub-list">
+        {#each sortedPublications as pub, i (pub.id)}
+          <div class="pub-card" class:is-open={openAbstract === pub.id}>
+            <div
+              class="pub-header"
+              role="button"
+              tabindex="0"
+              on:click={() => toggleAbstract(pub.id)}
+              on:keydown={(e) => handleKeydown(e, pub.id)}
+            >
+              <span class="pub-number">{i + 1}</span>
+              <div class="pub-meta">
+                <div class="pub-title">{pub.title}</div>
+                <div class="pub-cite">{pub.cite}</div>
+              </div>
+              <div class="pub-actions">
                 <a
-                  class="citation-title"
+                  class="pdf-btn"
                   href={pub.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   title="View PDF"
+                  on:click|stopPropagation
                 >
-                  {pub.title}
-                  <!-- eslint-disable-next-line -->
-                  {@html pdfIcon}
+                  <i class="bi bi-file-earmark-pdf"></i>
+                  <span>PDF</span>
                 </a>
-                <span class="citation-meta">{pub.cite}</span>
-                <button
-                  class="abstract-btn"
-                  on:click={() => toggleAbstract(pub.id)}
-                >
-                  {openAbstract === pub.id ? "Hide abstract" : "Show abstract"}
-                </button>
-                {#if openAbstract === pub.id}
-                  <div class="abstract-box">{pub.abstract}</div>
-                {/if}
-              </li>
-            {/each}
-          </ul>
-        </div>
+                <span class="chevron" class:rotated={openAbstract === pub.id}>
+                  <i class="bi bi-chevron-down"></i>
+                </span>
+              </div>
+            </div>
+
+            {#if openAbstract === pub.id}
+              <div class="pub-abstract" transition:slide={{ duration: 200 }}>
+                {pub.abstract}
+              </div>
+            {/if}
+          </div>
+        {/each}
       </div>
     </div>
   </div>
@@ -112,6 +116,8 @@
     margin: 0 auto;
     padding: 0 1.5rem;
   }
+
+  /* PhD card */
   .phd-card {
     background: #ffffff;
     border: 1.5px solid var(--c-border);
@@ -120,77 +126,163 @@
     margin-bottom: 2.5rem;
     box-shadow: var(--shadow-card);
   }
-  .citation-list {
-    padding: 0;
-    margin: 0;
-  }
-  .citation-item {
-    list-style: none;
-    margin-bottom: 1.5em;
-    padding-bottom: 1.5em;
-    border-bottom: 1px solid var(--c-border);
-    text-indent: -2em;
-    padding-left: 2em;
-    position: relative;
-    display: block;
-    font-size: 1.1em;
-  }
-  .citation-title {
-    color: var(--c-navy);
-    font-weight: bold;
-    text-decoration: underline;
-    margin-right: 0.3em;
-    word-break: break-word;
-    cursor: pointer;
-    display: inline;
-    font-size: 1.1em;
-  }
-  .citation-title:hover {
-    text-decoration: underline dotted;
-  }
-  .citation-meta {
+  .phd-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     color: var(--c-text-muted);
-    font-size: 1.1em;
-    word-break: break-word;
-    margin-left: 0.2em;
-    display: inline;
+    margin-bottom: 0.5rem;
   }
-  .abstract-btn {
-    margin-left: 0.7em;
-    font-size: 0.95em;
+  .phd-title-link {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--c-navy);
-    background: none;
-    border: none;
-    cursor: pointer;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+  .phd-title-link:hover {
+    color: var(--c-navy);
     text-decoration: underline;
-    padding: 0;
   }
-  .abstract-box {
-    background: #ffffff;
-    border-left: 3px solid var(--c-gold);
-    border-radius: 0 var(--radius-card) var(--radius-card) 0;
-    color: #222;
-    margin: 0.7em 0 0.5em 0;
-    padding: 1em;
-    font-size: 0.97em;
-    text-indent: 0;
-    width: 100%;
-  }
-  @media (max-width: 600px) {
-    .citation-item {
-      text-indent: 0;
-      padding-left: 0.5em;
-      display: block;
-    }
-    .abstract-box {
-      font-size: 0.95em;
-      padding: 0.7em;
-    }
-  }
-  .phd-title {
-    font-size: 1.1em;
+  .phd-title-link i {
+    font-size: 0.85em;
+    opacity: 0.7;
   }
   .phd-desc {
-    font-size: 1.1em;
+    font-size: 0.97rem;
+    color: var(--c-text-muted);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Publications list */
+  .pubs-heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--c-navy);
+    margin-bottom: 1.25rem;
+  }
+  .pub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .pub-card {
+    background: #ffffff;
+    border: 1.5px solid var(--c-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+  .pub-card.is-open {
+    border-color: var(--c-navy);
+  }
+  .pub-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.1rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.12s;
+  }
+  .pub-header:hover {
+    background: rgba(7, 41, 77, 0.03);
+  }
+  .pub-header:focus-visible {
+    outline: 2px solid var(--c-navy);
+    outline-offset: -2px;
+  }
+  .pub-number {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    background: var(--c-navy);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-top: 0.1rem;
+  }
+  .pub-meta {
+    flex: 1;
+    min-width: 0;
+  }
+  .pub-title {
+    font-size: 0.97rem;
+    font-weight: 700;
+    color: var(--c-navy);
+    line-height: 1.45;
+    margin-bottom: 0.3rem;
+  }
+  .pub-cite {
+    font-size: 0.85rem;
+    color: var(--c-text-muted);
+    line-height: 1.5;
+  }
+  .pub-actions {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.1rem;
+  }
+  .pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--c-navy);
+    text-decoration: none;
+    border: 1.5px solid var(--c-navy);
+    border-radius: 2rem;
+    padding: 0.2rem 0.6rem;
+    transition:
+      background 0.12s,
+      color 0.12s;
+    white-space: nowrap;
+  }
+  .pdf-btn:hover {
+    background: var(--c-navy);
+    color: #fff;
+  }
+  .chevron {
+    color: var(--c-text-muted);
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+  }
+  .chevron.rotated {
+    transform: rotate(180deg);
+  }
+  .pub-abstract {
+    padding: 0.9rem 1.1rem 1rem calc(1.1rem + 2rem + 1rem);
+    border-top: 1px solid var(--c-border);
+    border-left: 3px solid var(--c-gold);
+    font-size: 0.91rem;
+    color: var(--c-text);
+    line-height: 1.75;
+    background: #fafafa;
+  }
+
+  @media (max-width: 600px) {
+    .pub-number {
+      display: none;
+    }
+    .pub-abstract {
+      padding-left: 1rem;
+    }
+    .pdf-btn span {
+      display: none;
+    }
   }
 </style>
