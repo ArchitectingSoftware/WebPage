@@ -1,0 +1,92 @@
+[
+  {
+    "id": "SE575",
+    "title": "Software Design",
+    "level": "Graduate",
+    "syllabus": ""
+  },
+  {
+    "id": "CS576",
+    "title": "Dependable Software Systems",
+    "level": "Graduate",
+    "syllabus": ""
+  },
+  {
+    "id": "CS544",
+    "title": "Computer Networks",
+    "level": "Graduate",
+    "syllabus": "./syllabus/CS544.pdf"
+  },
+  {
+    "id": "CS545",
+    "title": "Cloud Native Software Engineering (formerly CS-T680)",
+    "level": "Graduate",
+    "syllabus": "./syllabus/CS545.pdf"
+  },
+  {
+    "id": "SE577",
+    "title": "Software Architecture",
+    "level": "Graduate",
+    "syllabus": ""
+  },
+  {
+    "id": "CS680",
+    "title": "Foundations of Computer Science",
+    "level": "Graduate",
+    "syllabus": ""
+  },
+  {
+    "id": "CS720",
+    "title": "Operating Systems",
+    "level": "Graduate",
+    "syllabus": ""
+  },
+  {
+    "id": "CS721",
+    "title": "Distributed Systems",
+    "level": "Graduate",
+    "syllabus": ""
+  },
+  {
+    "id": "CS281",
+    "title": "Systems Architecture I",
+    "level": "Undergraduate",
+    "syllabus": "./syllabus/CS281.pdf"
+  },
+  {
+    "id": "CS282",
+    "title": "Systems Architecture II",
+    "level": "Undergraduate",
+    "syllabus": ""
+  },
+  {
+    "id": "CS283",
+    "title": "Systems Programming",
+    "level": "Undergraduate",
+    "syllabus": "./syllabus/CS283.pdf"
+  },
+  {
+    "id": "CS350",
+    "title": "Object Oriented Programming",
+    "level": "Undergraduate",
+    "syllabus": ""
+  },
+  {
+    "id": "SE451",
+    "title": "Software Engineering",
+    "level": "Undergraduate",
+    "syllabus": ""
+  },
+  {
+    "id": "CS463",
+    "title": "Cloud Native Platform Engineering",
+    "level": "Undergraduate",
+    "syllabus": "./syllabus/CS463.pdf"
+  },
+  {
+    "id": "CS472",
+    "title": "Computer Networks",
+    "level": "Undergraduate",
+    "syllabus": "./syllabus/CS472.pdf"
+  }
+]

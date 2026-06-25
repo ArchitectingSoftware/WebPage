@@ -1,0 +1,15 @@
+{
+  "name": "Brian S. Mitchell, PhD",
+  "dept": "Department of Computer Science",
+  "college": "College of Computing and Informatics",
+  "office": "3675 Market - #1134",
+  "links": [
+    { "web": "https://www.cs.drexel.edu/~bmitchell/" },
+    { "github": "https://github.com/ArchitectingSoftware" },
+    { "linkedin": "https://www.linkedin.com/in/drbrianmitchell/" },
+    { "X/twitter": "https://x.com/DrBrianMitchell" },
+    {
+      "Google Scholar": "https://scholar.google.com/citations?user=EOZWN-YAAAAJ&hl=en"
+    }
+  ]
+}

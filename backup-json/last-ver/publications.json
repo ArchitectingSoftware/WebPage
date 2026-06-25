@@ -1,29 +1,5 @@
 [
   {
-    "id": 21,
-    "title": "calBERT: Securing Routers Serving IoT Networks using Contrastive Augmented Learning",
-    "cite": "John Carter, Spiros Mancoridis, Pavlos Protopapas, Brian S. Mitchell, Benji Lilley. In Proceedings of the 6th ACM Workshop on Secure and Trustworthy Cyber-Physical Systems (SaT-CPS '26), Frankfurt, Germany, June 2026.",
-    "link": "./pubs/SaTCPS2026.pdf",
-    "slides": null,
-    "abstract": "Previous work on home router security has shown that using system calls to train a transformer-based language model built on a BERT-style encoder using contrastive learning is effective in detecting several types of malware, but the performance remains limited at low false positive rates. In this work, we demonstrate that using a high-fidelity eBPF-based system call sensor, together with the novel introduction of contrastive augmented learning (which introduces controlled mutations of negative samples), improves detection performance, especially at low false positive rates. For example, for one malware pattern described below, detection at a 0.5% target false positive rate increases from 0% in the previous work to 70.56% using our contrastive augmented learning approach. However, for some of the system call results, such as for the stealthy advanced persistent threat (APT) malware, the detection could be improved at the lowest false positive rates examined. To this end, we introduce a novel network packet abstraction language that enables the creation of a pipeline similar to the system call data and show that the introduction of network behavior yields improved performance for network-focused malware at low false positive rates. In more than one case, detection at the lowest false positive rate improves from 0.00% using system calls to 100.00% using network traffic. Lastly, we implement these methods in an online router anomaly detection framework to validate the approach in an Internet of Things (IoT) deployment environment."
-  },
-  {
-    "id": 20,
-    "title": "RIG-RAG: A GraphRAG Inspired Approach to Agentic Cloud Infrastructure",
-    "cite": "Benji Lilley, Brian S. Mitchell, Spiros Mancoridis. In the IEEE Proceedings of the Conference on Applied Machine Learning in Information Security (CAMLIS'25), Arlington VA, USA, October 2025.",
-    "link": "./pubs/CAMLIS2025.pdf",
-    "slides": null,
-    "abstract": "Modern cloud environments contain thousands of interdependent resources that frequently change, making them complex to monitor with traditional tools. This paper introduces Re- lational Inference GraphRAG (RIG-RAG), a pair of LLM-assisted inference pipelines that transform raw cloud configuration data into a security-enriched typed knowledge graph to support natural-language reasoning about deployed infrastructure. RIG-RAG enables or- ganizations to execute natural language security queries against their cloud environments and to support the continuous validation of critical questions such as “What resources are publicly accessible?” or “Which identities can read from databases?”. Our implementation, SkyShark IQ, processes queries in two modes: interactive mode for ad hoc user interaction, and oversight mode for periodically executed curated inquiries that monitor infrastructure drift. By extracting cloud resource configurations into a typed graph structure with inferred security relationships, SkyShark IQ allows security teams to reason over complex infras- tructure through an intuitive conversational interface. Based on the current state of the deployed infrastructure, the system provides role-appropriate security insights, providing technical details to analysts, explaining implementation impacts to product owners, and presenting contextual risk summaries to business leaders. We deployed and evaluated our system in a production AWS environment that supports 300,000 users, demonstrating its ability to simplify complex infrastructure analysis, surface hidden security relationships, and provide verifiable, role-appropriate explanations that improve situational awareness and cross-team communication in operational security workflows."
-  },
-  {
-    "id": 19,
-    "title": "contrastBERT: Behavioral Anomaly Detection for Malware using Contrastive Learning",
-    "cite": "John Carter, Spiros Mancoridis, Pavlos Protopapas, Brian S. Mitchell. In the Springer Verlag Proceedings of the Conference on Game Theory and AI for Security (GameSec'25), Athens, Greece, October 2025.",
-    "link": "./pubs/GAMESEC2025.pdf",
-    "slides": null,
-    "abstract": "Behavioral anomaly detection is a useful tool for finding mal- ware attacks. Detection is possible using binary classification, where the behavior of benign software and malware is considered during the de- tector learning process. However, such classifiers are less likely to de- tect zero-day attacks, as the set of possible malware is enormous and changing. An alternative to binary classification is anomaly detection, which considers only the behavior of benign software to train a malware detector. Recent advances in Large Language Models (LLMs) in com- bination with Contrastive Learning have created a unique opportunity to develop anomaly detectors to expose malware threats. Our detector, contrastBERT, defines its language vocabulary as the set of calls to the operating system and the sequences of such calls as sentences. These sequences of system calls are logged during the execution of both be- nign software on the system to be monitored as well as separately during malware execution. contrastBERT is evaluated using a similarity dis- tribution between benign sample sentences fed to an isolation forest (IF), which provides an effective separation between benign and malicious be- havior when trained on embeddings from contrastBERT. Our results show that using this approach, several types of common malware behav- ior patterns can be detected with a high detection rate and a low false positive rate."
-  },
-  {
     "id": 18,
     "title": "On the Automatic Identification of Misconfiguration Errors in Cloud Native Systems",
     "cite": "Brian S. Mitchell, S. Mancoridis, J. Kashyap. In the Proceedings of the 7th Artificial Intelligence and Cloud Computing Conference (AICCC'24), Tokyo, Japan, December 2024.",
@@ -201,4 +177,4 @@
     "slides": null,
     "abstract": "This paper describes a collection of algorithms that we developed and implemented to facilitate the automatic recovery of the modular structure of a software system from its source code. We treat automatic modularization as an optimization problem. Our algorithms make use of traditional hill-climbing and genetic algorithms."
   }
-] 
+]

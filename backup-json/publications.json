@@ -1,13 +1,5 @@
 [
   {
-    "id": 21,
-    "title": "calBERT: Securing Routers Serving IoT Networks using Contrastive Augmented Learning",
-    "cite": "John Carter, Spiros Mancoridis, Pavlos Protopapas, Brian S. Mitchell, Benji Lilley. In Proceedings of the 6th ACM Workshop on Secure and Trustworthy Cyber-Physical Systems (SaT-CPS '26), Frankfurt, Germany, June 2026.",
-    "link": "./pubs/SaTCPS2026.pdf",
-    "slides": null,
-    "abstract": "Previous work on home router security has shown that using system calls to train a transformer-based language model built on a BERT-style encoder using contrastive learning is effective in detecting several types of malware, but the performance remains limited at low false positive rates. In this work, we demonstrate that using a high-fidelity eBPF-based system call sensor, together with the novel introduction of contrastive augmented learning (which introduces controlled mutations of negative samples), improves detection performance, especially at low false positive rates. For example, for one malware pattern described below, detection at a 0.5% target false positive rate increases from 0% in the previous work to 70.56% using our contrastive augmented learning approach. However, for some of the system call results, such as for the stealthy advanced persistent threat (APT) malware, the detection could be improved at the lowest false positive rates examined. To this end, we introduce a novel network packet abstraction language that enables the creation of a pipeline similar to the system call data and show that the introduction of network behavior yields improved performance for network-focused malware at low false positive rates. In more than one case, detection at the lowest false positive rate improves from 0.00% using system calls to 100.00% using network traffic. Lastly, we implement these methods in an online router anomaly detection framework to validate the approach in an Internet of Things (IoT) deployment environment."
-  },
-  {
     "id": 20,
     "title": "RIG-RAG: A GraphRAG Inspired Approach to Agentic Cloud Infrastructure",
     "cite": "Benji Lilley, Brian S. Mitchell, Spiros Mancoridis. In the IEEE Proceedings of the Conference on Applied Machine Learning in Information Security (CAMLIS'25), Arlington VA, USA, October 2025.",
