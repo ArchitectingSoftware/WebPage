@@ -31,13 +31,17 @@ case "$1" in
 
   deploy)
     echo "==> Deploying build/ to ${REMOTE}:${REMOTE_PATH}..."
-    rsync -avz --delete --chmod=D755,F644 --exclude='.DS_Store' build/ "${REMOTE}:${REMOTE_PATH}"
+    rsync -avz --delete --exclude='.DS_Store' build/ "${REMOTE}:${REMOTE_PATH}"
+    echo "==> Fixing permissions..."
+    ssh "${REMOTE}" "find ~/public_html -type f -exec chmod 644 {} \; && find ~/public_html -type d -exec chmod 755 {} \;"
     echo "==> Done."
     ;;
 
   data)
     echo "==> Syncing static/ deltas to ${REMOTE}:${REMOTE_PATH}..."
-    rsync -avz --chmod=D755,F644 --exclude='.DS_Store' static/ "${REMOTE}:${REMOTE_PATH}"
+    rsync -avz --exclude='.DS_Store' static/ "${REMOTE}:${REMOTE_PATH}"
+    echo "==> Fixing permissions..."
+    ssh "${REMOTE}" "find ~/public_html -type f -exec chmod 644 {} \; && find ~/public_html -type d -exec chmod 755 {} \;"
     echo "==> Done."
     ;;
 
