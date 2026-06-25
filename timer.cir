@@ -1,0 +1,64 @@
+* Crystal Oscillator Circuit for Educational Demonstration
+* Pierce Oscillator with CMOS Inverter
+
+.param VDD=5V
+.param freq=32.768k ; 32.768 kHz crystal frequency
+
+* Power supply
+VDD VDD 0 {VDD}
+
+* CMOS Inverter (using complementary MOSFET pair)
+* PMOS transistor
+M1 OUT IN VDD VDD PMOS_MODEL W=10u L=1u
+* NMOS transistor
+M2 OUT IN 0 0 NMOS_MODEL W=5u L=1u
+
+* Feedback resistor (Rfb)
+Rfb IN OUT 1Meg
+
+* Crystal model (simplified)
+* Series resonant frequency at 32.768 kHz
+L_crystal IN crystal_node {1/(4*pi*pi*freq*freq*C_crystal)}
+C_crystal crystal_node OUT 0.012p
+R_crystal crystal_node OUT 50
+
+* Load capacitors
+C1 IN 0 22p
+C2 OUT 0 22p
+
+* MOSFET Models (simplified)
+.model NMOS_MODEL NMOS(VTO=1V KP=100u LAMBDA=0.01)
+.model PMOS_MODEL PMOS(VTO=-1V KP=50u LAMBDA=0.01)
+
+* Initial condition to help start oscillation
+.ic V(OUT)=2.5V
+
+* Analysis commands
+.tran 0 2m 0 1u ; Run for 2ms with 1us max timestep
+.four {freq} V(OUT) ; Fourier analysis at crystal frequency
+
+* Measurement commands for educational purposes
+.meas tran period TRIG V(OUT)=2.5 RISE=2 TARG V(OUT)=2.5 RISE=3
+.meas tran frequency PARAM=1/period
+.meas tran amplitude PP V(OUT)
+
+* Options for better convergence
+.options gmin=1e-12
+.options abstol=1e-12
+.options reltol=1e-6
+
+.end
+
+* To use this circuit:
+* 1. Copy this netlist into a .asc file in LTspice
+* 2. Run the simulation
+* 3. Plot V(OUT) and V(IN) to see the oscillation
+* 4. Use .four command results to analyze frequency content
+* 5. Measure the oscillation frequency and compare to crystal spec
+
+* Educational Discussion Points:
+* - The crystal acts as a high-Q resonator
+* - C1 and C2 determine the load capacitance seen by the crystal
+* - Rfb provides DC feedback to bias the inverter in linear region
+* - The circuit oscillates at the crystal's series resonant frequency
+* - Phase shift through the crystal and capacitors creates positive feedback

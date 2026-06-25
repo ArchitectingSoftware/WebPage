@@ -1,0 +1,36 @@
+* Pierce Crystal Oscillator - 32.768 kHz
+* Save this as pierce_32k.cir and open in LTSpice
+
+Vdd Vdd 0 DC 5
+
+* Ideal inverting amplifier (behavioral source)
+* Output = -1000 * Vin
+Bamp out 0 V={-1000*V(in,0)}
+
+* Feedback resistor
+Rf in out 2Meg
+
+* Load capacitors (typical watch crystal)
+C1 out 0 12p
+C2 in 0 12p
+
+* Crystal equivalent circuit
+* Series Rm - Lm - Cm
+Rm in x1 50
+Lm x1 x2 23.59H
+Cm x2 out 1p
+
+* Shunt capacitance
+C0 in out 2p
+
+* Large resistor to ground (avoid floating input)
+Rin in 0 10Meg
+
+* Kickstart oscillation
+.ic V(out)=0.01
+
+* Transient simulation
+.tran 0 50m 0 10u
+
+.end
+
