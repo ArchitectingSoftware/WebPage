@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { slide } from "svelte/transition";
 
   type Course = {
     id: string;
@@ -9,33 +10,12 @@
   };
 
   let CourseList: Course[] = [];
-
-  let togglerEl: HTMLElement | null = null;
-  let toggler1El: HTMLElement | null = null;
   let isOpen1 = false;
   let isOpen2 = false;
 
   onMount(async () => {
     const res = await fetch("./courses.json");
     CourseList = await res.json();
-
-    if (togglerEl) {
-      togglerEl.addEventListener("show.bs.collapse", () => {
-        isOpen1 = true;
-      });
-      togglerEl.addEventListener("hide.bs.collapse", () => {
-        isOpen1 = false;
-      });
-    }
-
-    if (toggler1El) {
-      toggler1El.addEventListener("show.bs.collapse", () => {
-        isOpen2 = true;
-      });
-      toggler1El.addEventListener("hide.bs.collapse", () => {
-        isOpen2 = false;
-      });
-    }
   });
 
   $: gradCourses = CourseList.filter((c) => c.level === "Graduate");
@@ -122,47 +102,32 @@
         {/if}
       </div>
 
-      <div class="row lead text-align-left justify-content-center mt-5">
-        <div class="col-12 col-md-10 col-lg-8">
-          <div class="card shadow-lg p-4 mb-4 mentoring-card">
-            <h4 class="mb-3">Student Research and Mentoring</h4>
-            <p class="mb-4">
-              After spending many years in industry, I enjoy career mentoring
-              and getting students involved in research. Please make
-              arrangements to meet with me if this is something of interest to
-              you. Here are a few other things that you should know about
-              working with me (click to get more information). <strong
-                >Click on a button below for more information.</strong
-              >
-            </p>
-            <div
-              class="d-flex flex-column flex-md-row justify-content-center align-items-stretch gap-3 mb-2"
-            >
-              <button
-                class="btn btn-lg rounded-pill d-flex align-items-center justify-content-center gap-2 w-100 w-md-auto flex-fill {isOpen1
-                  ? 'btn-custom-active'
-                  : ''}"
-                data-bs-toggle="collapse"
-                data-bs-target="#toggler"
-              >
-                <i class="bi bi-file-earmark-text"></i> Recommendation Letters
-              </button>
+      <div class="mentoring-section">
+        <h4 class="mentoring-heading">Student Research &amp; Mentoring</h4>
+        <p class="mentoring-intro">
+          After spending many years in industry, I enjoy career mentoring and
+          getting students involved in research. Please make arrangements to
+          meet with me if this is of interest. A few things worth knowing about
+          working with me — click either topic below.
+        </p>
 
-              <button
-                class="btn btn-lg rounded-pill d-flex align-items-center justify-content-center gap-2 w-100 w-md-auto flex-fill {isOpen2
-                  ? 'btn-custom-active'
-                  : ''}"
-                data-bs-toggle="collapse"
-                data-bs-target="#toggler1"
-              >
-                <i class="bi bi-envelope"></i> Unsolicited Research Support Emails
-              </button>
-            </div>
-            <div class="collapse mt-3" id="toggler" bind:this={togglerEl}>
-              <div
-                class="card card-body shadow-sm border-0"
-                style="border-radius: 1rem;"
-              >
+        <div class="faq-list">
+          <div class="faq-item" class:is-open={isOpen1}>
+            <button
+              class="faq-header"
+              on:click={() => (isOpen1 = !isOpen1)}
+              aria-expanded={isOpen1}
+            >
+              <span class="faq-icon">
+                <i class="bi bi-file-earmark-text"></i>
+              </span>
+              <span class="faq-title">Recommendation Letters</span>
+              <span class="faq-chevron" class:rotated={isOpen1}>
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </button>
+            {#if isOpen1}
+              <div class="faq-body" transition:slide={{ duration: 200 }}>
                 I get many requests every year for recommendation letters from
                 students who have only taken a single course with me. I am happy
                 to write you a letter, but I will only be able to comment to the
@@ -170,27 +135,41 @@
                 class. This might be fine for a second or third letter, but
                 often times employers and schools are looking for letters from
                 people who have worked with the student directly over a longer
-                period of time. For example, you worked in one of my labs, we
-                worked on research together, you were a TA for some of my
+                period of time — for example, you worked in one of my labs, we
+                worked on research together, or you were a TA for some of my
                 classes.
               </div>
-            </div>
-            <div class="collapse mt-3" id="toggler1" bind:this={toggler1El}>
-              <div
-                class="card card-body shadow-sm border-0"
-                style="border-radius: 1rem;"
-              >
-                <p>
-                  I receive dozens of emails every term from students seeking my
-                  support to come to Drexel to do research work with me. These
-                  emails are very nice, but I am unable to help with this, so
-                  please do not expect a response. Please visit the
-                  <a href="https://drexel.edu/cci/">Drexel CCI webpage</a> for information
-                  on our undergraduate, graduate and PhD programs, including how to
-                  apply.
-                </p>
+            {/if}
+          </div>
+
+          <div class="faq-item" class:is-open={isOpen2}>
+            <button
+              class="faq-header"
+              on:click={() => (isOpen2 = !isOpen2)}
+              aria-expanded={isOpen2}
+            >
+              <span class="faq-icon">
+                <i class="bi bi-envelope"></i>
+              </span>
+              <span class="faq-title">Unsolicited Research Support Emails</span>
+              <span class="faq-chevron" class:rotated={isOpen2}>
+                <i class="bi bi-chevron-down"></i>
+              </span>
+            </button>
+            {#if isOpen2}
+              <div class="faq-body" transition:slide={{ duration: 200 }}>
+                I receive dozens of emails every term from students seeking my
+                support to come to Drexel to do research work with me. These
+                emails are very nice, but I am unable to help with this, so
+                please do not expect a response. Please visit the
+                <a
+                  href="https://drexel.edu/cci/"
+                  target="_blank"
+                  rel="noopener noreferrer">Drexel CCI webpage</a
+                > for information on our undergraduate, graduate, and PhD programs,
+                including how to apply.
               </div>
-            </div>
+            {/if}
           </div>
         </div>
       </div>
@@ -305,45 +284,108 @@
     font-size: 0.9rem;
   }
 
-  /* Mentoring card */
-  .mentoring-card {
-    background: #ffffff !important;
+  /* Mentoring / FAQ section */
+  .mentoring-section {
+    margin-top: 3.5rem;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .mentoring-heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--c-navy);
+    margin-bottom: 0.6rem;
+  }
+  .mentoring-intro {
+    font-size: 0.95rem;
+    color: var(--c-text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .faq-item {
+    background: #ffffff;
     border: 1.5px solid var(--c-border);
-    box-shadow: var(--shadow-card);
-    color: var(--c-text);
     border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: border-color 0.15s;
   }
-  .mentoring-card h4,
-  .mentoring-card p,
-  .mentoring-card a,
-  .mentoring-card button {
-    color: var(--c-text);
+  .faq-item.is-open {
+    border-color: var(--c-navy);
   }
-  .mentoring-card .btn {
+  .faq-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.9rem 1.1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.12s;
+  }
+  .faq-header:hover {
+    background: rgba(7, 41, 77, 0.03);
+  }
+  .faq-header:focus-visible {
+    outline: 2px solid var(--c-navy);
+    outline-offset: -2px;
+  }
+  .faq-icon {
+    flex-shrink: 0;
+    width: 2.1rem;
+    height: 2.1rem;
     background: var(--c-navy);
     color: #fff;
-    border: none;
-    border-radius: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 1rem;
-    padding: 0.65rem 1.75rem;
-    box-shadow: none;
-    transition: background 0.2s;
   }
-  .mentoring-card .btn:hover {
-    background: #0a3d6b;
+  .faq-title {
+    flex: 1;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--c-navy);
   }
-  .mentoring-card .btn.btn-custom-active {
-    background: #0a3d6b;
-    border-bottom: 2px solid var(--c-gold);
+  .faq-chevron {
+    flex-shrink: 0;
+    color: var(--c-text-muted);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease;
   }
-  .mentoring-card .btn.btn-custom-active:hover,
-  .mentoring-card .btn.btn-custom-active:focus {
-    background: #082d4e;
+  .faq-chevron.rotated {
+    transform: rotate(180deg);
   }
-  .mentoring-card .btn:focus:hover {
-    background: #0a3d6b;
+  .faq-body {
+    padding: 0.85rem 1.1rem 1rem calc(1.1rem + 2.1rem + 0.9rem);
+    border-top: 1px solid var(--c-border);
+    border-left: 3px solid var(--c-gold);
+    font-size: 0.91rem;
+    color: var(--c-text);
+    line-height: 1.75;
+    background: #fafafa;
   }
-  .mentoring-card .btn:focus:not(:hover):not(.btn-custom-active) {
-    background: var(--c-navy);
+  .faq-body a {
+    color: var(--c-navy);
+    font-weight: 600;
+  }
+  .faq-body a:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 600px) {
+    .faq-body {
+      padding-left: 1rem;
+    }
   }
 </style>
