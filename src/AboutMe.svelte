@@ -4,7 +4,7 @@
 
 <div class="section-about" id="me">
   <div class="section-container">
-    <h2 class="section-heading">About Me</h2>
+    <h2 class="section-heading"><i class="bi bi-person-fill"></i>About Me</h2>
     <div class="container">
       <div class="row lead text-align-left">
         <div class="col about-text">

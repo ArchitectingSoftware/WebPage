@@ -350,7 +350,9 @@ ${number}. <a href="${pub.link}" class="link-info" target="_blank">${pub.title}<
 
 <div class="section-terminal" id="terminal">
   <div class="section-container">
-    <h2 class="section-heading terminal-heading">Terminal</h2>
+    <h2 class="section-heading terminal-heading">
+      <i class="bi bi-terminal-fill"></i>Terminal
+    </h2>
     <div class="container">
       <div class="row lead text-align-left">
         <div class="col">
@@ -424,8 +426,8 @@ ${number}. <a href="${pub.link}" class="link-info" target="_blank">${pub.title}<
     color: #20c997;
     font-family: "Courier New", monospace;
   }
-  :global(.terminal-heading::after) {
-    background: #20c997;
+  .terminal-heading :global(i) {
+    color: #20c997;
   }
   .terminal-box {
     font-family: "Courier New", monospace;

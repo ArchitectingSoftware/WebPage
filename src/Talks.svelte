@@ -13,7 +13,9 @@
 
 <div class="section-talks" id="talks">
   <div class="section-container">
-    <h2 class="section-heading">Conference and Technical Talks</h2>
+    <h2 class="section-heading">
+      <i class="bi bi-mic-fill"></i>Conference and Technical Talks
+    </h2>
     <div class="container">
       <div class="row lead text-align-left">
         <div class="col">

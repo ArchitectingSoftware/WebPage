@@ -28,7 +28,10 @@
 
 <div class="section-teaching" id="teaching">
   <div class="section-container">
-    <h2 class="section-heading">Teaching, Student Research & Mentoring</h2>
+    <h2 class="section-heading">
+      <i class="bi bi-mortarboard-fill"></i>Teaching, Student Research &amp;
+      Mentoring
+    </h2>
     <div class="container">
       <div class="row lead text-align-left">
         <div class="col">

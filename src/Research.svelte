@@ -34,7 +34,9 @@
 
 <div class="section-research" id="research">
   <div class="section-container">
-    <h2 class="section-heading">Research</h2>
+    <h2 class="section-heading">
+      <i class="bi bi-journal-bookmark-fill"></i>Research
+    </h2>
     <div class="container">
       <div class="phd-card">
         <h4 class="phd-label">Ph.D. Thesis</h4>

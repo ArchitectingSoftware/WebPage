@@ -1,6 +1,8 @@
 <div class="section-links" id="links">
   <div class="section-container">
-    <h2 class="section-heading links-heading">Helpful Links</h2>
+    <h2 class="section-heading links-heading">
+      <i class="bi bi-bookmarks-fill"></i>Helpful Links
+    </h2>
     <div class="links-grid">
       <a
         class="link-card"
@@ -42,9 +44,6 @@
   }
   .links-heading {
     color: #ffffff;
-  }
-  :global(.links-heading::after) {
-    background: var(--c-gold);
   }
   .links-grid {
     display: grid;
