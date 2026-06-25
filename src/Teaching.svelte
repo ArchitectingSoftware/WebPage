@@ -1,18 +1,19 @@
 <script lang="ts">
   import { onMount } from "svelte";
+
   type Course = {
     id: string;
     title: string;
     level: string;
     syllabus?: string;
   };
+
   let CourseList: Course[] = [];
 
   let togglerEl: HTMLElement | null = null;
   let toggler1El: HTMLElement | null = null;
-
-  let isOpen1 = false; // Not reactive declaration here
-  let isOpen2 = false; // Not reactive declaration here
+  let isOpen1 = false;
+  let isOpen2 = false;
 
   onMount(async () => {
     const res = await fetch("./courses.json");
@@ -36,6 +37,13 @@
       });
     }
   });
+
+  $: gradCourses = CourseList.filter((c) => c.level === "Graduate");
+  $: undergradCourses = CourseList.filter((c) => c.level === "Undergraduate");
+
+  function hasSyllabus(course: Course): boolean {
+    return !!course.syllabus && course.syllabus.trim() !== "";
+  }
 </script>
 
 <div class="section-teaching" id="teaching">
@@ -55,56 +63,66 @@
           </p>
         </div>
       </div>
-      <div class="row">
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>
-                  <div class="syllabus-header-hint">
-                    [ <i class="bi bi-journal-text syllabus-header-icon"></i> Syllabus
-                    ]
-                  </div>
-                  <div class="course-number-label">Course Number</div>
-                </th>
-                <th>Course Title</th>
-                <th>Course Level</th>
-              </tr>
-            </thead>
-            <tbody>
-              {#each CourseList as course (course.id)}
-                <tr
-                  class:clickable-row={course.syllabus &&
-                    course.syllabus !== ""}
-                  on:click={() => {
-                    if (course.syllabus && course.syllabus !== "") {
-                      window.open(course.syllabus, "_blank", "noopener");
-                    }
-                  }}
-                  style="user-select: none;"
-                  title={course.syllabus && course.syllabus !== ""
-                    ? "Click row to view syllabus"
-                    : undefined}
-                >
-                  <th scope="row">
-                    {#if course.syllabus && course.syllabus !== ""}
-                      <span class="syllabus-icon-link">
-                        <i class="bi bi-journal-text syllabus-header-icon"></i>
-                      </span>
-                      <span class="course-id-with-icon">{course.id}</span>
-                    {:else}
-                      {course.id}
-                    {/if}
-                  </th>
-                  <td>{course.title}</td>
-                  <td>{course.level}</td>
-                </tr>
+
+      <div class="courses-grid">
+        {#if gradCourses.length > 0}
+          <div class="course-group">
+            <h5 class="course-group-label">Graduate</h5>
+            <div class="course-list">
+              {#each gradCourses as course (course.id)}
+                <div class="course-card">
+                  <span class="course-id">{course.id}</span>
+                  <span class="course-title">{course.title}</span>
+                  {#if hasSyllabus(course)}
+                    <a
+                      class="syllabus-btn"
+                      href={course.syllabus}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="View syllabus"
+                    >
+                      <i class="bi bi-file-earmark-text"></i>
+                      <span>Syllabus</span>
+                    </a>
+                  {:else}
+                    <span class="no-syllabus">—</span>
+                  {/if}
+                </div>
               {/each}
-            </tbody>
-          </table>
-        </div>
+            </div>
+          </div>
+        {/if}
+
+        {#if undergradCourses.length > 0}
+          <div class="course-group">
+            <h5 class="course-group-label">Undergraduate</h5>
+            <div class="course-list">
+              {#each undergradCourses as course (course.id)}
+                <div class="course-card">
+                  <span class="course-id">{course.id}</span>
+                  <span class="course-title">{course.title}</span>
+                  {#if hasSyllabus(course)}
+                    <a
+                      class="syllabus-btn"
+                      href={course.syllabus}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="View syllabus"
+                    >
+                      <i class="bi bi-file-earmark-text"></i>
+                      <span>Syllabus</span>
+                    </a>
+                  {:else}
+                    <span class="no-syllabus">—</span>
+                  {/if}
+                </div>
+              {/each}
+            </div>
+          </div>
+        {/if}
       </div>
-      <div class="row lead text-align-left justify-content-center">
+
+      <div class="row lead text-align-left justify-content-center mt-5">
         <div class="col-12 col-md-10 col-lg-8">
           <div class="card shadow-lg p-4 mb-4 mentoring-card">
             <h4 class="mb-3">Student Research and Mentoring</h4>
@@ -176,29 +194,11 @@
           </div>
         </div>
       </div>
-      <div class="row lead text-align-left">
-        <div class="col"></div>
-      </div>
     </div>
   </div>
 </div>
 
 <style>
-  :global(.section-teaching .table) {
-    background-color: transparent !important;
-  }
-
-  :global(.section-teaching .table th),
-  :global(.section-teaching .table td) {
-    background-color: transparent !important;
-    border-color: rgba(0, 0, 0, 0.1) !important;
-    font-size: 1.18em;
-  }
-
-  :global(.section-teaching .table-hover tbody tr:hover) {
-    background-color: rgba(0, 0, 0, 0.05) !important;
-  }
-
   .section-teaching {
     background-color: #ffffff;
     padding: var(--section-py) 0;
@@ -209,6 +209,103 @@
     padding: 0 1.5rem;
   }
 
+  /* Course grid */
+  .courses-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 700px) {
+    .courses-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .course-group-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--c-text-muted);
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--c-gold);
+  }
+
+  .course-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .course-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: #ffffff;
+    border: 1.5px solid var(--c-border);
+    border-radius: var(--radius-card);
+    padding: 0.6rem 0.85rem;
+    box-shadow: var(--shadow-card);
+    transition: border-color 0.12s;
+  }
+  .course-card:hover {
+    border-color: rgba(7, 41, 77, 0.3);
+  }
+
+  .course-id {
+    flex-shrink: 0;
+    font-family: "Courier New", monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--c-navy);
+    border-radius: 0.3rem;
+    padding: 0.2rem 0.45rem;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  .course-title {
+    flex: 1;
+    font-size: 0.88rem;
+    color: var(--c-text);
+    line-height: 1.35;
+    min-width: 0;
+  }
+
+  .syllabus-btn {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--c-navy);
+    text-decoration: none;
+    border: 1.5px solid var(--c-navy);
+    border-radius: 2rem;
+    padding: 0.18rem 0.55rem;
+    white-space: nowrap;
+    transition:
+      background 0.12s,
+      color 0.12s;
+  }
+  .syllabus-btn:hover {
+    background: var(--c-navy);
+    color: #fff;
+  }
+
+  .no-syllabus {
+    flex-shrink: 0;
+    width: 1.5rem;
+    text-align: center;
+    color: var(--c-border);
+    font-size: 0.9rem;
+  }
+
+  /* Mentoring card */
   .mentoring-card {
     background: #ffffff !important;
     border: 1.5px solid var(--c-border);
@@ -248,62 +345,5 @@
   }
   .mentoring-card .btn:focus:not(:hover):not(.btn-custom-active) {
     background: var(--c-navy);
-  }
-
-  .syllabus-icon-link {
-    margin-left: 6px;
-    color: #357ab8;
-    font-size: 1.15em;
-    vertical-align: middle;
-    text-decoration: none;
-    display: inline-block;
-  }
-  .syllabus-icon-link:hover {
-    color: #245080;
-    text-decoration: underline;
-  }
-  .syllabus-icon-link i {
-    vertical-align: -2px;
-  }
-  .syllabus-header-hint {
-    font-size: 1.05em;
-    color: #245080;
-    font-weight: 500;
-    margin-bottom: 2px;
-    letter-spacing: 0.01em;
-    display: flex;
-    align-items: center;
-    gap: 3px;
-  }
-  .syllabus-header-icon,
-  .syllabus-icon-link i {
-    color: #ffc600;
-    font-size: 1.25em;
-    font-weight: bold;
-    vertical-align: -2px;
-    background: none;
-    box-shadow: none;
-    filter: none;
-  }
-  .course-number-label {
-    font-size: 0.98em;
-    color: #222;
-    font-weight: bold;
-    margin-top: 0px;
-  }
-  .course-id-with-icon {
-    margin-left: 6px;
-  }
-  @media (max-width: 768px) {
-    .syllabus-header-hint {
-      display: none;
-    }
-  }
-  .clickable-row {
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-  .clickable-row:hover {
-    background-color: rgba(7, 41, 77, 0.06) !important;
   }
 </style>
