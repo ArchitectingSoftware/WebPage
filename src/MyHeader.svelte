@@ -11,14 +11,13 @@
     <div class="hero-text-col">
       <h1 class="hero-name">Brian S. Mitchell, Ph.D.</h1>
       <p class="hero-dept">
-        Teaching Professor &nbsp;·&nbsp; Department of Computer Science
-        &nbsp;·&nbsp; Drexel University
+        Department of Computer Science &nbsp;·&nbsp; Drexel University
       </p>
       <p class="hero-bio">
-        My research and teaching interests sit at the intersection of Software
-        Security, Modern AI, Cloud Computing, and IoT. I blend 20+ years of
-        industry experience — most recently as a Distinguished Engineer at a
-        Fortune 15 company — with active academic research and mentoring.
+        I'm a faculty member in the Drexel University Computer Science
+        Department, where I teach courses in Software Engineering and Systems.
+        My research interests are at the intersection of Software Security,
+        Modern AI, Cloud Computing, and Edge Computing.
       </p>
       <div class="hero-contact">
         <div class="contact-row">
@@ -141,8 +140,8 @@
   }
 
   .hero-dept {
-    font-size: 0.92rem;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.75);
     margin-bottom: 1.25rem;
     letter-spacing: 0.01em;
   }
