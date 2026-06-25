@@ -6,3 +6,5 @@ minimumReleaseAgeExclude:
 onlyBuiltDependencies:
   - esbuild
   - svelte-preprocess
+overrides:
+  "svelte-eslint-parser>eslint-scope": "^9.0.0"

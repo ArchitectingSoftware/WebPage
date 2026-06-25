@@ -28,38 +28,40 @@
   const pdfIcon = `<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' style='vertical-align:middle;margin-left:3px' viewBox='0 0 24 24' fill='none' stroke='#d32f2f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='2' width='20' height='20' rx='2.18' ry='2.18'/><path d='M7 7h10M7 11h10M7 15h4'/></svg>`;
 </script>
 
-<div class="container-fluid drexel-gray py-5" id="research">
-  <section class="jumbotron">
-    <h2 class="jumbotron-heading display-6 text-center">Research</h2>
+<div class="section-research" id="research">
+  <div class="section-container">
+    <h2 class="section-heading">Research</h2>
     <div class="container">
-      <div class="row">
-        <h4>Ph.D. Thesis</h4>
-      </div>
-      <div class="row text-align-left">
-        <span class="font-italic fw-bold phd-title">
-          <a
-            class="citation-title"
-            href="./pubs/MitchellPhD.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="View PDF"
-          >
-            A Heuristic Search Approach to Solving the Software Clustering
-            Problem
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            {@html pdfIcon}
-          </a>
-        </span>
-        <p class="phd-desc">
-          The focus of this work was to investigate recovering interesting views
-          of the structure of software systems using heuristic search
-          techniques. This work has applicability in multiple software
-          engineering areas including: program understanding, software
-          maintenance, and architecture recovery. As one of the founding members
-          of the field of Search-Based Software Engineering (SBSE), this work
-          has been widely cited by researchers interested in investigating
-          software clustering algorithms and techniques.
-        </p>
+      <div class="phd-card">
+        <div class="row">
+          <h4>Ph.D. Thesis</h4>
+        </div>
+        <div class="row text-align-left">
+          <span class="font-italic fw-bold phd-title">
+            <a
+              class="citation-title"
+              href="./pubs/MitchellPhD.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="View PDF"
+            >
+              A Heuristic Search Approach to Solving the Software Clustering
+              Problem
+              <!-- eslint-disable-next-line -->
+              {@html pdfIcon}
+            </a>
+          </span>
+          <p class="phd-desc">
+            The focus of this work was to investigate recovering interesting
+            views of the structure of software systems using heuristic search
+            techniques. This work has applicability in multiple software
+            engineering areas including: program understanding, software
+            maintenance, and architecture recovery. As one of the founding
+            members of the field of Search-Based Software Engineering (SBSE),
+            this work has been widely cited by researchers interested in
+            investigating software clustering algorithms and techniques.
+          </p>
+        </div>
       </div>
       <div class="row">
         <h4>Journal and Research Publications</h4>
@@ -78,7 +80,7 @@
                   title="View PDF"
                 >
                   {pub.title}
-                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                  <!-- eslint-disable-next-line -->
                   {@html pdfIcon}
                 </a>
                 <span class="citation-meta">{pub.cite}</span>
@@ -97,10 +99,27 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </div>
 
 <style>
+  .section-research {
+    background-color: var(--c-off-white);
+    padding: var(--section-py) 0;
+  }
+  .section-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .phd-card {
+    background: #ffffff;
+    border: 1.5px solid var(--c-border);
+    border-radius: var(--radius-card);
+    padding: 1.5rem 2rem;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow-card);
+  }
   .citation-list {
     padding: 0;
     margin: 0;
@@ -109,7 +128,7 @@
     list-style: none;
     margin-bottom: 1.5em;
     padding-bottom: 1.5em;
-    border-bottom: 1px solid #bbb;
+    border-bottom: 1px solid var(--c-border);
     text-indent: -2em;
     padding-left: 2em;
     position: relative;
@@ -117,7 +136,7 @@
     font-size: 1.1em;
   }
   .citation-title {
-    color: #1a4e8a;
+    color: var(--c-navy);
     font-weight: bold;
     text-decoration: underline;
     margin-right: 0.3em;
@@ -130,7 +149,7 @@
     text-decoration: underline dotted;
   }
   .citation-meta {
-    color: #222;
+    color: var(--c-text-muted);
     font-size: 1.1em;
     word-break: break-word;
     margin-left: 0.2em;
@@ -139,7 +158,7 @@
   .abstract-btn {
     margin-left: 0.7em;
     font-size: 0.95em;
-    color: #1a4e8a;
+    color: var(--c-navy);
     background: none;
     border: none;
     cursor: pointer;
@@ -147,9 +166,10 @@
     padding: 0;
   }
   .abstract-box {
-    background: #f5f5f5;
+    background: #ffffff;
+    border-left: 3px solid var(--c-gold);
+    border-radius: 0 var(--radius-card) var(--radius-card) 0;
     color: #222;
-    border-radius: 0.5em;
     margin: 0.7em 0 0.5em 0;
     padding: 1em;
     font-size: 0.97em;

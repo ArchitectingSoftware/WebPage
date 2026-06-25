@@ -20,10 +20,10 @@
 
     if (togglerEl) {
       togglerEl.addEventListener("show.bs.collapse", () => {
-        isOpen1 = true; // Svelte state updates when Bootstrap shows it
+        isOpen1 = true;
       });
       togglerEl.addEventListener("hide.bs.collapse", () => {
-        isOpen1 = false; // Svelte state updates when Bootstrap hides it
+        isOpen1 = false;
       });
     }
 
@@ -38,11 +38,9 @@
   });
 </script>
 
-<div class="container-fluid drexel-light-blue py-5" id="teaching">
-  <section class="jumbotron">
-    <h2 class="jumbotron-heading display-6 text-center">
-      Teaching, Student Research & Mentoring
-    </h2>
+<div class="section-teaching" id="teaching">
+  <div class="section-container">
+    <h2 class="section-heading">Teaching, Student Research & Mentoring</h2>
     <div class="container">
       <div class="row lead text-align-left">
         <div class="col">
@@ -108,10 +106,7 @@
       </div>
       <div class="row lead text-align-left justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
-          <div
-            class="card shadow-lg p-4 mb-4 mentoring-card"
-            style="border-radius: 1.25rem;"
-          >
+          <div class="card shadow-lg p-4 mb-4 mentoring-card">
             <h4 class="mb-3">Student Research and Mentoring</h4>
             <p class="mb-4">
               After spending many years in industry, I enjoy career mentoring
@@ -185,87 +180,74 @@
         <div class="col"></div>
       </div>
     </div>
-  </section>
+  </div>
 </div>
 
 <style>
-  :global(.drexel-light-blue .table) {
+  :global(.section-teaching .table) {
     background-color: transparent !important;
   }
 
-  :global(.drexel-light-blue .table th),
-  :global(.drexel-light-blue .table td) {
+  :global(.section-teaching .table th),
+  :global(.section-teaching .table td) {
     background-color: transparent !important;
     border-color: rgba(0, 0, 0, 0.1) !important;
     font-size: 1.18em;
   }
 
-  :global(.drexel-light-blue .table-hover tbody tr:hover) {
+  :global(.section-teaching .table-hover tbody tr:hover) {
     background-color: rgba(0, 0, 0, 0.05) !important;
   }
+
+  .section-teaching {
+    background-color: #ffffff;
+    padding: var(--section-py) 0;
+  }
+  .section-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
   .mentoring-card {
-    background: #eaf4fb !important;
-    border: 2px solid #357ab8;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-    color: #222;
+    background: #ffffff !important;
+    border: 1.5px solid var(--c-border);
+    box-shadow: var(--shadow-card);
+    color: var(--c-text);
+    border-radius: var(--radius-card);
   }
   .mentoring-card h4,
   .mentoring-card p,
   .mentoring-card a,
   .mentoring-card button {
-    color: #222;
+    color: var(--c-text);
   }
-
-  /* Base style for ALL buttons within .mentoring-card.
-   This should define common properties like padding, border-radius, box-shadow, transition.
-   Avoid setting a background-color here if you want other specific classes to easily override.
-  */
-
-  /* Base style for ALL buttons within .mentoring-card */
   .mentoring-card .btn {
-    background: #357ab8; /* Your initial light blue */
+    background: var(--c-navy);
     color: #fff;
     border: none;
     border-radius: 2rem;
-    font-size: 1.1rem;
-    padding: 0.75rem 2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition:
-      background 0.2s,
-      box-shadow 0.2s;
+    font-size: 1rem;
+    padding: 0.65rem 1.75rem;
+    box-shadow: none;
+    transition: background 0.2s;
   }
-
-  /* Hover/Focus state for ALL buttons */
-  /* Hover state for ALL buttons */
   .mentoring-card .btn:hover {
-    background: #245080; /* Your desired dark blue hover color */
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    background: #0a3d6b;
   }
-
-  /* Focus state - only apply dark color if button is also being hovered */
-  .mentoring-card .btn:focus:hover {
-    background: #245080;
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  }
-
-  /* Focus state without hover - keep original color */
-  .mentoring-card .btn:focus:not(:hover):not(.btn-custom-active) {
-    background: #357ab8; /* Your original light blue */
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  }
-
-  /* Active state for custom buttons (when collapse is open) */
   .mentoring-card .btn.btn-custom-active {
-    background: #245080; /* Match the dark blue hover color */
+    background: #0a3d6b;
+    border-bottom: 2px solid var(--c-gold);
   }
-
-  /* Ensure active state also considers hover/focus */
   .mentoring-card .btn.btn-custom-active:hover,
   .mentoring-card .btn.btn-custom-active:focus {
-    background: #1a385a; /* Slightly darker shade for active-and-hover/focus */
+    background: #082d4e;
+  }
+  .mentoring-card .btn:focus:hover {
+    background: #0a3d6b;
+  }
+  .mentoring-card .btn:focus:not(:hover):not(.btn-custom-active) {
+    background: var(--c-navy);
   }
 
   .syllabus-icon-link {
@@ -322,6 +304,6 @@
     transition: background 0.15s;
   }
   .clickable-row:hover {
-    background-color: #b3d6f7 !important;
+    background-color: rgba(7, 41, 77, 0.06) !important;
   }
 </style>

@@ -1,32 +1,90 @@
-<div class="container-fluid drexel-blue py-5" id="links">
-  <section class="jumbotron drexel-font-yellow">
-    <h2 class="jumbotron-heading display-6 text-center">Helpful Links</h2>
-    <div class="container">
-      <div class="row lead text-align-left">
-        <div class="col">
-          <p>Below are some helpful links to online resources</p>
+<div class="section-links" id="links">
+  <div class="section-container">
+    <h2 class="section-heading links-heading">Helpful Links</h2>
+    <div class="links-grid">
+      <a
+        class="link-card"
+        href="https://github.com/ArchitectingSoftware"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="bi bi-github link-icon"></i>
+        <div>
+          <div class="link-title">GitHub</div>
+          <div class="link-sub">@ArchitectingSoftware</div>
         </div>
-      </div>
-      <div class="row">
-        <a class="drexel-link" href="https://github.com/ArchitectingSoftware">
-          My Github Page - @ArchitectingSoftware
-        </a>
-        <a class="drexel-link" href="https://learn.dcollege.net/">
-          Drexel Learn (Blackboard)</a
-        >
-      </div>
+      </a>
+      <a
+        class="link-card"
+        href="https://learn.dcollege.net/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="bi bi-mortarboard link-icon"></i>
+        <div>
+          <div class="link-title">Drexel Learn</div>
+          <div class="link-sub">Blackboard LMS</div>
+        </div>
+      </a>
     </div>
-  </section>
+  </div>
 </div>
 
 <style>
-  a.drexel-link {
-    color: white;
-    text-decoration: none;
+  .section-links {
+    background-color: var(--c-navy);
+    padding: var(--section-py) 0;
   }
-  a.drexel-link:hover {
-    color: #ffc600;
+  .section-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .links-heading {
+    color: #ffffff;
+  }
+  :global(.links-heading::after) {
+    background: var(--c-gold);
+  }
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-card);
     text-decoration: none;
-    font-weight: bold;
+    color: rgba(255, 255, 255, 0.9);
+    transition:
+      background 0.2s,
+      border-color 0.2s;
+  }
+  .link-card:hover {
+    background: rgba(255, 198, 0, 0.12);
+    border-color: rgba(255, 198, 0, 0.35);
+    color: #ffffff;
+  }
+  .link-icon {
+    font-size: 1.75rem;
+    color: var(--c-gold);
+    flex-shrink: 0;
+  }
+  .link-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  .link-sub {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 0.1rem;
   }
 </style>

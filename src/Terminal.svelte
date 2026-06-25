@@ -1,12 +1,7 @@
 <script lang="ts">
   import { onMount, afterUpdate } from "svelte";
 
-  let input = "";
-  let output: string[] = [];
-  let history: string[] = [];
-  let historyIndex = -1;
-  let inputEl: HTMLInputElement;
-  let terminalEl: HTMLDivElement;
+  type CourseItem = { id: string; title: string; syllabus?: string };
   type ContactLink = Record<string, string>;
   type ContactData = {
     name?: string;
@@ -15,20 +10,14 @@
     office?: string;
     links?: ContactLink[];
   };
-  type CourseItem = {
-    id: string;
-    title: string;
-    level: string;
-    syllabus?: string;
-  };
-  type PubItem = {
-    id: number;
-    title: string;
-    cite: string;
-    link: string;
-    abstract: string;
-  };
+  type PubItem = { id: number; title: string; cite: string; link: string };
 
+  let input = "";
+  let output: string[] = [];
+  let history: string[] = [];
+  let historyIndex = -1;
+  let inputEl: HTMLInputElement;
+  let terminalEl: HTMLDivElement;
   let coursesData: CourseItem[] = [];
   let contactData: ContactData = {};
   let publicationsData: PubItem[] = [];
@@ -75,8 +64,8 @@
     "office": "${contactData.office}",
     "links": [`;
 
-      if (contactData.links && contactData.links.length > 0) {
-        const links = contactData.links;
+      const links = contactData.links;
+      if (links && links.length > 0) {
         links.forEach((linkObj: ContactLink, index: number) => {
           const isLast = index === links.length - 1;
           const comma = isLast ? "" : ",";
@@ -359,15 +348,13 @@ ${number}. <a href="${pub.link}" class="link-info" target="_blank">${pub.title}<
   }
 </script>
 
-<div class="container-fluid bg-dark py-5" id="terminal">
-  <section class="jumbotron">
-    <h2 class="jumbotron-heading display-6 text-center text-success">
-      Terminal
-    </h2>
+<div class="section-terminal" id="terminal">
+  <div class="section-container">
+    <h2 class="section-heading terminal-heading">Terminal</h2>
     <div class="container">
       <div class="row lead text-align-left">
         <div class="col">
-          <p class="terminal-font text-white">
+          <p class="terminal-font">
             Try interacting with my website using a terminal interface. At any
             time you can type <span class="text-success fw-bold">help</span> to
             get a list of commands. Note all commands have -h and --help options
@@ -377,13 +364,13 @@ ${number}. <a href="${pub.link}" class="link-info" target="_blank">${pub.title}<
           </p>
 
           <div class="mb-3">
-            <button class="btn btn-success" on:click={resetTerminal}>
+            <button class="btn-reset" on:click={resetTerminal}>
               Reset Terminal
             </button>
           </div>
 
           <div
-            class="terminal bg-dark text-success rounded border border-light"
+            class="terminal-box"
             role="button"
             tabindex="0"
             bind:this={terminalEl}
@@ -397,7 +384,7 @@ ${number}. <a href="${pub.link}" class="link-info" target="_blank">${pub.title}<
             <div class="input-line d-flex">
               <span class="me-2 text-success">$</span>
               <input
-                class="form-control bg-dark text-success border-0"
+                class="terminal-input"
                 bind:this={inputEl}
                 bind:value={input}
                 on:keydown={handleKey}
@@ -407,34 +394,77 @@ ${number}. <a href="${pub.link}" class="link-info" target="_blank">${pub.title}<
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </div>
 
 <style>
-  .terminal {
-    font-family: monospace;
-    height: 400px;
-    max-height: 400px;
-    overflow-y: auto;
-    padding: 1rem;
-  }
   .input-line {
     display: flex;
     margin-top: 0.2rem;
-  }
-  input.form-control {
-    flex: 1;
-    background: transparent;
-    color: inherit;
-    border: none;
-    font-family: inherit;
-    outline: none;
-    padding: 0;
   }
   .text-success {
     color: #20c997 !important;
   }
   .terminal-font {
-    font-family: monospace;
+    font-family: "Courier New", monospace;
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+  }
+  .section-terminal {
+    background-color: #0d1117;
+    padding: var(--section-py) 0;
+  }
+  .section-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .terminal-heading {
+    color: #20c997;
+    font-family: "Courier New", monospace;
+  }
+  :global(.terminal-heading::after) {
+    background: #20c997;
+  }
+  .terminal-box {
+    font-family: "Courier New", monospace;
+    height: 420px;
+    max-height: 420px;
+    overflow-y: auto;
+    padding: 1.25rem;
+    background: #010409;
+    color: #20c997;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-card);
+    cursor: text;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+  .terminal-input {
+    flex: 1;
+    background: transparent;
+    color: #20c997;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+    padding: 0;
+    caret-color: #20c997;
+  }
+  .btn-reset {
+    background: transparent;
+    border: 1px solid #20c997;
+    color: #20c997;
+    border-radius: var(--radius-card);
+    font-size: 0.875rem;
+    padding: 0.4rem 1.2rem;
+    font-family: "Courier New", monospace;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-reset:hover {
+    background: rgba(32, 201, 151, 0.1);
+    color: #20c997;
   }
 </style>

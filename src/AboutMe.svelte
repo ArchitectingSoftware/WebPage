@@ -2,16 +2,16 @@
   import MITCHELL_FAMILY from "./assets/MitchellFamily.jpg";
 </script>
 
-<div class="container-fluid drexel-yellow py-5" id="me">
-  <section class="jumbotron">
-    <h2 class="jumbotron-heading display-6 text-center">About Me</h2>
+<div class="section-about" id="me">
+  <div class="section-container">
+    <h2 class="section-heading">About Me</h2>
     <div class="container">
       <div class="row lead text-align-left">
-        <div class="col">
+        <div class="col about-text">
           <img
             alt="Mitchell Family"
             src={MITCHELL_FAMILY}
-            class="rounded float-sm-start imgshadow pe-2 pt-2"
+            class="about-photo"
           />
 
           <p>
@@ -40,5 +40,39 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </div>
+
+<style>
+  .section-about {
+    background-color: var(--c-off-white);
+    padding: var(--section-py) 0;
+  }
+  .section-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .about-photo {
+    max-width: 280px;
+    width: 100%;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-card);
+    margin: 0 1.75rem 1rem 0;
+    float: left;
+  }
+  .about-text p {
+    font-size: 1.02rem;
+    line-height: 1.8;
+    color: var(--c-text);
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 575px) {
+    .about-photo {
+      float: none;
+      display: block;
+      margin: 0 auto 1.5rem;
+      max-width: 100%;
+    }
+  }
+</style>

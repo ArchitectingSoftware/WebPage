@@ -11,17 +11,13 @@
   });
 </script>
 
-<div class="container-fluid drexel-blue-2 py-5" id="talks">
-  <section class="jumbotron">
-    <h2 class="jumbotron-heading display-6 text-center drexel-font-yellow">
-      Conference and Technical Talks
-    </h2>
+<div class="section-talks" id="talks">
+  <div class="section-container">
+    <h2 class="section-heading">Conference and Technical Talks</h2>
     <div class="container">
       <div class="row lead text-align-left">
         <div class="col">
-          <p class="drexel-font-white">
-            The following are some talks that I have given at conferences
-          </p>
+          <p>The following are some talks that I have given at conferences</p>
         </div>
       </div>
       <div class="row">
@@ -45,37 +41,46 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </div>
 
 <style>
+  .section-talks {
+    background-color: #ffffff;
+    padding: var(--section-py) 0;
+  }
+  .section-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
   .talks-table {
     width: 100%;
     background: transparent;
-    color: white;
+    color: var(--c-text);
     border-collapse: collapse;
-    margin-top: 1.5em;
+    margin-top: 1.25rem;
   }
   .talks-table th,
   .talks-table td {
-    border-bottom: 1px solid #3a3a3a;
-    padding: 0.7em 0.5em;
+    border-bottom: 1px solid var(--c-border);
+    padding: 0.85rem 0.75rem;
     text-align: left;
-    font-size: 1.18em;
+    font-size: 0.97rem;
   }
   .talks-table th {
-    color: #ffc600;
-    font-weight: bold;
+    color: var(--c-navy);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    border-bottom: 2px solid var(--c-gold);
     background: transparent;
+  }
+  .talks-table tbody tr:hover {
+    background-color: rgba(7, 41, 77, 0.04);
   }
   .talks-table tr:last-child td {
     border-bottom: none;
-  }
-  @media (max-width: 600px) {
-    .talks-table th,
-    .talks-table td {
-      font-size: 0.97em;
-      padding: 0.5em 0.2em;
-    }
   }
 </style>
