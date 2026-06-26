@@ -185,11 +185,6 @@
     background-color: #ffffff;
     padding: var(--section-py) 0;
   }
-  .section-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
 
   /* Course grid */
   .courses-grid {

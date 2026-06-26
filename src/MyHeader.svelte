@@ -11,11 +11,11 @@
     <div class="hero-text-col">
       <h1 class="hero-name">Brian S. Mitchell, Ph.D.</h1>
       <p class="hero-dept">
-        Department of Computer Science &nbsp;·&nbsp; Drexel University
+        Department of Computer Science &nbsp;·&nbsp; College of Engineering and Computing &nbsp;·&nbsp;Drexel University
       </p>
       <p class="hero-bio">
         I'm a faculty member in the Drexel University Computer Science
-        Department, where I teach courses in Software Engineering and Systems.
+        Department, where I teach courses in Systems, Networking and Cloud Computing.
         My research interests are at the intersection of Software Security,
         Modern AI, Cloud Computing, and Edge Computing.
       </p>
@@ -102,7 +102,7 @@
   .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 1000px;
+    max-width: var(--max-content-width);
     margin: 0 auto;
     padding: 5rem 2rem;
     display: flex;

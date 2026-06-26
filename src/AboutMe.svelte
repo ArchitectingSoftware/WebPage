@@ -48,11 +48,6 @@
     background-color: var(--c-off-white);
     padding: var(--section-py) 0;
   }
-  .section-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
   .about-photo {
     max-width: 280px;
     width: 100%;

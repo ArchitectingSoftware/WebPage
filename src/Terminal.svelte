@@ -417,11 +417,6 @@ ${number}. <a href="${pub.link}" class="link-info" target="_blank">${pub.title}<
     background-color: #0d1117;
     padding: var(--section-py) 0;
   }
-  .section-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
   .terminal-heading {
     color: #20c997;
     font-family: "Courier New", monospace;
